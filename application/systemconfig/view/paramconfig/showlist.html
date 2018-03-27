@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>系统参数配置</title>
+
+    <link href="__CSS__/bootstrap.min.css" rel="stylesheet">
+    <link href="__CSS__/font-awesome.css" rel="stylesheet">
+
+    <link href="__CSS__/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="__CSS__/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+
+    <link href="__CSS__/animate.css" rel="stylesheet">
+    <link href="__CSS__/style.css" rel="stylesheet">
+    <!-- 弹层样式 -->
+    <link href="__CSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <!-- layer样式 -->
+    <link href="__JSPLU__/layer/theme/default/layer.css" rel="stylesheet">
+    <!-- laowang自己的css -->
+    <link href="__CSS__/local_style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<div id="wrapper">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>系统参数配置</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="index.html">首页</a>
+                    </li>
+                    <li>
+                        <a>系统设置</a>
+                    </li>
+                    <li class="active">
+                        <strong>系统参数配置</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#tab-1">系统基本</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-3"> 自由配置</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-4"> 图像</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="tab-1" class="tab-pane active">
+                                    <div class="panel-body">
+                                        <fieldset class="form-horizontal">
+                                            <div class="form-group"><label class="col-sm-2 control-label">系统名称:</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="system_name" conf_id="{$vars['fixed_param'][0]['id']}" readonly="readonly" value="{$vars['fixed_param'][0]['value']}" class="form-control" placeholder="请输入系统名称">
+                                                </div>
+                                            </div>
+                                            <div class="form-group"><label class="col-sm-2 control-label">备案信息:</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="icp_info" conf_id="{$vars['fixed_param'][0]['id']}" readonly="readonly" value="{$vars['fixed_param'][1]['value']}" class="form-control" placeholder="请输入备案信息">
+                                                </div>
+                                            </div>
+                                            <div class="form-group"><label class="col-sm-2 control-label">技术支持:</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="power_by" conf_id="{$vars['fixed_param'][0]['id']}" readonly="readonly" value="{$vars['fixed_param'][2]['value']}" class="form-control" placeholder="请输入技术支持">
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div id="tab-3" class="tab-pane">
+                                    <div class="panel-body">
+
+                                        <div class="table-responsive">
+                                            <table class="table table-stripped table-bordered">
+
+                                                <thead>
+                                                <tr>
+                                                    <th>
+                                                        配置名称
+                                                    </th>
+                                                    <th>
+                                                        标识符
+                                                    </th>
+                                                    <th>
+                                                        配置内容
+                                                    </th>
+                                                    <th>
+                                                        备注表述
+                                                    </th>
+                                                    <th>
+                                                        排序
+                                                    </th>
+                                                    <th>
+                                                      操作
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="freed-config-tbody">
+                                                    {foreach $vars['freed_param'] as $k=>$v}
+                                                        <tr conf_id="{$v['id']}">
+                                                            <td>
+                                                                <input type="text" name="name" value="{$v['name']}" class="form-control" placeholder="请输入配置名称">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name="flag" value="{$v['flag']}" class="form-control" placeholder="请输入配置标识符">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name="value" value="{$v['value']}" class="form-control" placeholder="请输入配置内容">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name="description" value="{$v['description']}" class="form-control" placeholder="请输入配置描述备注">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name="indexno" value="{$v['indexno']}" class="form-control" placeholder="请输入配置序号">
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-white" onclick="get_freed_config_datas(this,'update')"><i class="fa fa-save"></i> </button>
+                                                                <button class="btn btn-white" onclick="del_this_config(this,'{$v[\'id\']}')"><i class="fa fa-trash"></i> </button>
+                                                            </td>
+                                                        </tr>
+                                                    {/foreach}
+                                                </tbody>
+
+                                            </table>
+                                            <button type="button" class="btn btn-success" onclick="add_new_config(this)"><i class="fa fa-plus">新增配置</i></button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div id="tab-4" class="tab-pane">
+                                    <div class="panel-body">
+
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-stripped">
+                                                <thead>
+                                                <tr>
+                                                    <th>
+                                                        图片视图
+                                                    </th>
+                                                    <th>
+                                                        图片链接
+                                                    </th>
+                                                    <th>
+                                                        排序
+                                                    </th>
+                                                    <th>
+                                                        操作
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <img src="__IMG__/gallery/2s.jpg">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" disabled value="http://mydomain.com/images/image1.png">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="__IMG__/gallery/1s.jpg">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" disabled value="http://mydomain.com/images/image2.png">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" value="2">
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="__IMG__/gallery/3s.jpg">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" disabled value="http://mydomain.com/images/image3.png">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" value="3">
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="__IMG__/gallery/4s.jpg">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" disabled value="http://mydomain.com/images/image4.png">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" value="4">
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="__IMG__/gallery/5s.jpg">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" disabled value="http://mydomain.com/images/image5.png">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" value="5">
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="__IMG__/gallery/6s.jpg">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" disabled value="http://mydomain.com/images/image6.png">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" value="6">
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="__IMG__/gallery/7s.jpg">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" disabled value="http://mydomain.com/images/image7.png">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" value="7">
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</div>
+
+
+
+<!-- Mainly scripts -->
+<script src="__JS__/jquery-2.1.1.js"></script>
+<script src="__JS__/bootstrap.min.js"></script>
+<script src="__JS__/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="__JS__/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="__JS__/inspinia.js"></script>
+<script src="__JS__/plugins/pace/pace.min.js"></script>
+
+<!-- SUMMERNOTE -->
+<script src="__JS__/plugins/summernote/summernote.min.js"></script>
+
+<!-- layer -->
+<script src="__JSPLU__/layer/layer.js"></script>
+<!-- 弹层js -->
+<script src="__JS__/plugins/sweetalert/sweetalert.min.js"></script>
+<!-- 引入通用js -->
+<script src="__JS__/local/common.js"></script>
+
+<!-- 引入本页面js -->
+<script src="__JS__/local/sysparmcf.js"></script>
+
+<script>
+    $(document).ready(function(){
+
+        $('.summernote').summernote();
+    });
+    
+    //获取url(使用tp内置的url制作url)
+    /*
+     * @param path[String][必须] //要制作的地址[字符串类型]
+     * @param param[String|Array][非必须]   //制作url时需要带的参数[字符串类型或者数组]
+     */
+    function get_url(path, param){
+        return make_url("{:url('common/tool/get_url')}", path, param);
+    }
+</script>
+
+</body>
+
+</html>

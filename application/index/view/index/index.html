@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>首页</title>
+
+    <link href="__CSS__/bootstrap.min_1.css" rel="stylesheet">
+    <link href="__CSS__/font-awesome_1.css" rel="stylesheet">
+    <!-- 弹窗样式 -->
+    <link href="__CSS__/plugins/sweetalert/sweetalert_1.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="__CSS__/plugins/toastr/toastr.min_1.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="__JS__/plugins/gritter/jquery.gritter_1.css" rel="stylesheet">
+    <!-- 弹层js -->
+    <script src="__JS__/plugins/sweetalert/sweetalert.min_1.js"></script>
+
+    <link href="__CSS__/animate_1.css" rel="stylesheet">
+    <link href="__CSS__/style_1.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="__IMG__/profile_small.jpg" />
+                             </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold" id="username">{$userinfo['nike_name']}</strong>
+                             </span> <span class="text-muted text-xs block">管理员 <b class="caret"></b></span> </span> </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="profile.html?id={$userinfo['id']}">个人信息</a></li>
+                                <li><a href="contacts.html?id={$userinfo['id']}">联系方式</a></li>
+                                <li><a href="mailbox.html?id={$userinfo['id']}">邮箱</a></li>
+                                <li class="divider"></li>
+                                <li><a href="javascript:;" onclick="log_out()">退出登录</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                    {if isset($vars['0']) }
+                        {foreach vars as $k=>$v}
+                            <li>
+                                <a href="#"><i class="{$v['icon']}"></i> <span class="nav-label">{$v['name']}</span><span class="fa arrow"></span></a>
+                                {if isset($v['child']) }
+                                    {foreach $v['child'] as $kk=>$vv}
+                                        <ul class="nav nav-second-level collapse">
+                                            <li url="{:url($vv['url'])}"><a href="javascript:;">{$vv['name']}</a></li>
+                                        </ul>
+                                    {/foreach}
+                                {/if}
+                            </li>
+                        {/foreach}
+                    {/if}
+
+
+
+
+<!--                     <li>
+                        <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">分类管理</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li url=""><a href="javascript:;">设置</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-user"></i> <span class="nav-label">用户管理</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li url="{:url('backend/adminer/list')}"><a href="javascript:;">后台用户</a></li>
+                            <li url=""><a href="javascript:;">普通用户</a></li>
+                            <li url="{:url('backend/bumeng/list')}"><a href="javascript:;">部门与角色</a></li>
+                            <li url="{:url('backend/limit/list')}"><a href="javascript:;">权限管理</a></li>
+                            <li url=""><a href="javascript:;">会员管理</a></li>
+                            <li url=""><a href="javascript:;">账户管理</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">系统设置</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li url="{:url('backend/sysconf/lfmulist')}"><a href="javascript:;">左侧菜单</a></li>
+                        </ul>
+                    </li> -->
+                </ul>
+
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                        <form role="search" class="navbar-form-custom" action="search_results.html">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">欢迎</span>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-messages">
+                                <li>
+                                    <div class="dropdown-messages-box">
+                                        <a href="profile.html" class="pull-left">
+                                            <img alt="image" class="img-circle" src="__IMG__/a7.jpg">
+                                        </a>
+                                        <div class="media-body">
+                                            <small class="pull-right">46小时前</small>
+                                            <strong>李文俊</strong> 关注了 <strong>刘海洋</strong>. <br>
+                                            <small class="text-muted">3 天 前- 10.06.2014</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="dropdown-messages-box">
+                                        <a href="profile.html" class="pull-left">
+                                            <img alt="image" class="img-circle" src="__IMG__/a4.jpg">
+                                        </a>
+                                        <div class="media-body ">
+                                            <small class="pull-right text-navy">5小时前</small>
+                                            <strong>王昆</strong> 关注了 <strong>李文俊</strong>. <br>
+                                            <small class="text-muted">昨天下午1:21 - 11.06.2014</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="dropdown-messages-box">
+                                        <a href="profile.html" class="pull-left">
+                                            <img alt="image" class="img-circle" src="__IMG__/profile.jpg">
+                                        </a>
+                                        <div class="media-body ">
+                                            <small class="pull-right">23小时前</small>
+                                            <strong>张三</strong> 赞了 <strong>李四</strong>. <br>
+                                            <small class="text-muted">2天前 - 11.06.2014</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="text-center link-block">
+                                        <a href="mailbox.html">
+                                            <i class="fa fa-envelope"></i> <strong>查看更多消息</strong>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-alerts">
+                                <li>
+                                    <a href="mailbox.html">
+                                        <div>
+                                            <i class="fa fa-envelope fa-fw"></i> 您有 16 条未读通知
+                                            <span class="pull-right text-muted small">4 分钟 前</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="profile.html">
+                                        <div>
+                                            <i class="fa fa-twitter fa-fw"></i> 3 个新粉丝
+                                            <span class="pull-right text-muted small">12 分钟 前</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="grid_options.html">
+                                        <div>
+                                            <i class="fa fa-upload fa-fw"></i> 服务器重启
+                                            <span class="pull-right text-muted small">4 分钟 前</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="text-center link-block">
+                                        <a href="notifications.html">
+                                            <strong>查看更多通知</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li>
+                            <a href="javascript:;" onclick="log_out()">
+                                <i class="fa fa-sign-out"></i> 退出登录
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <iframe id="iframes" src="/PSD1710/20_CMSstyle/public/backend/controller" scrolling="no"></iframe>
+            <div class="footer">
+                    <div class="pull-right">
+                        10GB of <strong>250GB</strong> Free.
+                    </div>
+                    <div>
+                        <strong>Copyright</strong> Example Company &copy; 2014-2015
+                    </div>
+                </div>
+        </div>
+    </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="__JS__/jquery-2.1.1.js"></script>
+    <script src="__JS__/bootstrap.min.js"></script>
+    <script src="__JS__/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__JS__/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Flot -->
+    <script src="__JS__/plugins/flot/jquery.flot.js"></script>
+    <script src="__JS__/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="__JS__/plugins/flot/jquery.flot.spline.js"></script>
+    <script src="__JS__/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="__JS__/plugins/flot/jquery.flot.pie.js"></script>
+
+    <!-- Peity -->
+    <script src="__JS__/plugins/peity/jquery.peity.min.js"></script>
+    <script src="__JS__/demo/peity-demo.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__JS__/inspinia.js"></script>
+    <script src="__JS__/plugins/pace/pace.min.js"></script>
+
+    <!-- jQuery UI -->
+    <script src="__JS__/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- GITTER -->
+    <script src="__JS__/plugins/gritter/jquery.gritter.min.js"></script>
+
+    <!-- Sparkline -->
+    <script src="__JS__/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Sparkline demo data  -->
+    <script src="__JS__/demo/sparkline-demo.js"></script>
+
+    <!-- ChartJS-->
+    <script src="__JS__/plugins/chartJs/Chart.min.js"></script>
+
+    <!-- 弹层js -->
+    <script src="__JS__/plugins/toastr/toastr.min.js"></script>
+
+
+    <script>
+        //开启全屏
+        function fullscreen(){
+            var docElm = document.documentElement;
+            if (docElm.requestFullscreen) {
+             docElm.requestFullscreen();
+            }
+            else if (docElm.msRequestFullscreen) {
+             docElm.msRequestFullscreen();
+            }
+            else if (docElm.mozRequestFullScreen) {
+             docElm.mozRequestFullScreen();
+            }
+            else if (docElm.webkitRequestFullScreen) {
+             docElm.webkitRequestFullScreen();
+            }
+        }
+
+
+
+        $(document).ready(function() {
+            //绿色欢迎小弹窗
+            setTimeout(function() {
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 4000
+                };
+                toastr.success('当前版本CMSV2.0','欢迎使用');
+
+            }, 1300);
+
+
+            var data1 = [
+                [0,4],[1,8],[2,5],[3,10],[4,4],[5,16],[6,5],[7,11],[8,6],[9,11],[10,30],[11,10],[12,13],[13,4],[14,3],[15,3],[16,6]
+            ];
+            var data2 = [
+                [0,1],[1,0],[2,2],[3,0],[4,1],[5,3],[6,1],[7,5],[8,2],[9,3],[10,2],[11,1],[12,0],[13,2],[14,8],[15,0],[16,0]
+            ];
+            $("#flot-dashboard-chart").length && $.plot($("#flot-dashboard-chart"), [
+                data1, data2
+            ],
+                    {
+                        series: {
+                            lines: {
+                                show: false,
+                                fill: true
+                            },
+                            splines: {
+                                show: true,
+                                tension: 0.4,
+                                lineWidth: 1,
+                                fill: 0.4
+                            },
+                            points: {
+                                radius: 0,
+                                show: true
+                            },
+                            shadowSize: 2
+                        },
+                        grid: {
+                            hoverable: true,
+                            clickable: true,
+                            tickColor: "#d5d5d5",
+                            borderWidth: 1,
+                            color: '#d5d5d5'
+                        },
+                        colors: ["#1ab394", "#1C84C6"],
+                        xaxis:{
+                        },
+                        yaxis: {
+                            ticks: 4
+                        },
+                        tooltip: false
+                    }
+            );
+
+            var doughnutData = [
+                {
+                    value: 300,
+                    color: "#a3e1d4",
+                    highlight: "#1ab394",
+                    label: "App"
+                },
+                {
+                    value: 50,
+                    color: "#dedede",
+                    highlight: "#1ab394",
+                    label: "Software"
+                },
+                {
+                    value: 100,
+                    color: "#A4CEE8",
+                    highlight: "#1ab394",
+                    label: "Laptop"
+                }
+            ];
+
+            var doughnutOptions = {
+                segmentShowStroke: true,
+                segmentStrokeColor: "#fff",
+                segmentStrokeWidth: 2,
+                percentageInnerCutout: 45, // This is 0 for Pie charts
+                animationSteps: 100,
+                animationEasing: "easeOutBounce",
+                animateRotate: true,
+                animateScale: false
+            };
+
+//            var ctx = document.getElementById("doughnutChart").getContext("2d");
+//            var DoughnutChart = new Chart(ctx).Doughnut(doughnutData, doughnutOptions);
+
+            var polarData = [
+                {
+                    value: 300,
+                    color: "#a3e1d4",
+                    highlight: "#1ab394",
+                    label: "App"
+                },
+                {
+                    value: 140,
+                    color: "#dedede",
+                    highlight: "#1ab394",
+                    label: "Software"
+                },
+                {
+                    value: 200,
+                    color: "#A4CEE8",
+                    highlight: "#1ab394",
+                    label: "Laptop"
+                }
+            ];
+
+            var polarOptions = {
+                scaleShowLabelBackdrop: true,
+                scaleBackdropColor: "rgba(255,255,255,0.75)",
+                scaleBeginAtZero: true,
+                scaleBackdropPaddingY: 1,
+                scaleBackdropPaddingX: 1,
+                scaleShowLine: true,
+                segmentShowStroke: true,
+                segmentStrokeColor: "#fff",
+                segmentStrokeWidth: 2,
+                animationSteps: 100,
+                animationEasing: "easeOutBounce",
+                animateRotate: true,
+                animateScale: false
+            };
+//            var ctx = document.getElementById("polarChart").getContext("2d");
+//            var Polarchart = new Chart(ctx).PolarArea(polarData, polarOptions);
+
+        });
+
+        //设置iframe的宽高度
+        $("#page-wrapper").css({"overflow":"hidden"});
+        $("#iframes").css({"width":(parseInt($("#iframes").parent().parent().css("width").replace("px",""))-240)+"px","height":$("#iframes").parent().css("height"),"overflow":"hidden"});
+        $("#page-wrapper").css({"height":(parseInt($("#iframes").css("height").replace("px",""))+80)+"px"});
+
+        //绑定url地址
+        $(".nav-second-level").children().click(function(){
+            $("#iframes").attr("src",$(this).attr("url"));
+        });
+
+        //退出登陆
+            function log_out(){
+                swal({
+                    title: "您确定要退出登陆吗",
+                    text: '登陆后你将无法进行任何操作(可重新登陆)',
+                    type: "warning",
+                    showCancelButton: true,
+//                            confirmButtonColor: "#DD6B55",
+                    cancelButtonText: "取消",
+                    confirmButtonText: "确定",
+                    closeOnConfirm: false
+                }, function () {
+                    $.ajax({
+                        url:"{:url('/backend/logout')}",
+                        dataType:'json',
+                        type:'post',
+                        success:function(res_datas){
+                            //操作成功
+                            if( res_datas['res_code']==200 ){
+                                swal({
+                                    title: "成功退出登陆",
+                                    text: res_datas['msg'],
+                                    type: "success",
+                                    showCancelButton: false,
+//                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "确定",
+                                    closeOnConfirm: false
+                                }, function () {
+                                    window.top.location.href="/PSD1710/20_CMSstyle/public/backend/login";
+                                });
+                            }
+                            //操作失败
+                            else if( res_datas['res_code']==400 ){
+                                swal({
+                                    title: "操作失败",
+                                    text: res_datas['msg'],
+                                    type: "error"
+                                });
+                            }
+                        },
+                        error:function(){
+
+                        }
+                    });
+                });
+            }
+
+    </script>
+</body>
+</html>

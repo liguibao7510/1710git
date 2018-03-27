@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>动态</title>
+    <!-- layer样式 -->
+    <link href="__JSPLU__/layer/theme/default/layer.css" rel="stylesheet" />
+    <link href="__TPLSOUR__/{$vars['currenttpl']}/css/pc/style.css" rel="stylesheet">
+    <link href="__TPLSOUR__/{$vars['currenttpl']}/css/pc/service.css" rel="stylesheet">
+    <style type="text/css">
+        .clearfix-li{
+            margin-top: 30px;
+        }
+        .title-p{
+            font-weight: bold;
+        }
+        .desc-p{
+            text-indent:30px;
+        }
+        .sider-bar{
+            height: 1500px;
+        }
+    </style>
+<body>
+    <div id="hd">
+        <div class="site-nav">
+
+    <div class="main-content">
+        <div class="site-notice">
+            <i class="iconfont">&#xe640;</i>
+            <span>公告：[3.29] 春节长假云服务合同邮寄公告</span>
+            <a href="javascript:;" class="more-notice">更多></a>
+        </div>
+
+        <div class="site-nav-r-opt">
+            <ul>
+                <li class="site-log"><a href="javascript:;">您好！请登录</a></li>
+                <li class="site-reg"><a href="javascript:;">新单位注册</a></li>
+                <li class="site-ctrl"><a href="backend/login.html">管理控制台</a></li>
+            </ul>
+        </div>
+    </div>
+    
+</div>
+        <div class="header-nav">
+  <div class="main-content">
+        <div class="navigation-inner">
+            <div class="logo">
+                <h1>
+                    <a href="index.html" class="logo-img">云平台</a>
+                </h1>
+            </div>
+            <div class="header-categories" id="nav-con">
+                <ul class="menu">
+                </ul>
+            </div>
+        </div>
+  </div>
+</div>
+    </div>
+
+<div id="bd" class="main-content">
+    <div class="main-wrap clearfix">
+        <div class="sider-bar">
+            <ul class="sider-nav">
+                <div class="col-sm-4 article-classify-parent">
+                    <div class="col-sm-10 col-sm-10-selects article-classify">
+                        <select class="form-control" name="classify" onchange="selected_artcf(this)">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+            </ul>
+            <div class="form-group">
+                <button type="button" onclick="search_now()" class="btn btn-w-m btn-info">搜索</button>
+            </div>
+        </div>
+
+        <div class="bd-content-wrap">
+            <div class="bd-content">
+                <ul class="clearfix artlist">
+                </ul>
+            </div>
+            <button type="button" onclick="getMore()">获取更多</button>
+         </div>
+      </div>
+    </div>
+
+    <div id="ft" class="login-ft">
+  <div class="footer-copyright">
+    <p class="clearfix links">
+    </p>
+    <p style="font-family:arial;"></p>
+    <p style="font-family:arial;"></p>
+  </div>
+</div>
+    <script src="__JS__/jquery-2.1.1.js"></script>
+    <!-- layer插件js -->
+    <script src="__JSPLU__/layer/layer.js"></script>
+    <!-- 网站导航json数据 -->
+    <script src="__JSON__/webmap.js"></script>
+    <!-- 引入文章分类json数据 -->
+    <script src="__JSON__/articleclassify.js"></script>
+    <!-- 通用js -->
+    <script src="__TPLSOUR__/{$vars['currenttpl']}/js/pc/common.js"></script>
+    <!-- 本页面js -->
+    <script src="__TPLSOUR__/{$vars['currenttpl']}/js/pc/articlelist.js"></script>
+    <script>
+        
+        //获取url(使用tp内置的url制作url)
+        /*
+         * @param path[String][必须] //要制作的地址[字符串类型]
+         * @param param[String|Array][非必须]   //制作url时需要带的参数[字符串类型或者数组]
+         */
+        function get_url(path, param){
+            return make_url("{:url('common/tool/get_url')}", path, param);
+        }
+        
+    </script>
+</body>
+</html>

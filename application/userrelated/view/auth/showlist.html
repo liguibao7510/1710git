@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link href="__CSS__/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="__CSS__/auth_style.css"/>       
+<link href="__CSS__/codemirror.css" rel="stylesheet"/>
+<link rel="stylesheet" href="__CSS__/ace.min.css" />
+<link rel="stylesheet" href="__CSS__/font-awesome.min.css" />
+<!--[if lte IE 8]>
+          <link rel="stylesheet" href="__CSS__/ace-ie.min.css" />
+        <![endif]-->
+<!-- 弹层样式 -->
+<link href="__CSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+<!-- layer样式 -->
+<link href="__JSPLU__/layer/theme/default/layer.css" rel="stylesheet" />
+<!-- laowang自己的css -->
+<link href="__CSS__/local_style.css" rel="stylesheet">
+<title>权限管理</title>
+</head>
+
+<body>
+<div class="Competence_add_style clearfix">
+    <div class="left_Competence_add" style="height: 381px;">
+        <div class="title_name">添加权限</div>
+        <div class="Competence_add">
+            <form id='add_form'>
+                <input type="hidden" name="id" />
+                <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 权限名称 </label>
+                    <div class="col-sm-9"><input type="text" placeholder="" name="name" class="col-xs-10 col-sm-5"></div>
+                </div>
+                <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 上级 </label>
+                    <div class="col-sm-9">
+                        <select id="pid1" name="pid1">
+                            <option value="0" model="">--请选择--</option>
+                        </select>
+                        <select id="pid2" name="pid2">
+                            <option value="0" controller="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 模块 </label>
+                    <div class="col-sm-9"><input type="text" placeholder="" name="model" class="col-xs-10 col-sm-5"></div>
+                </div>
+                <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 控制 </label>
+                    <div class="col-sm-9"><input type="text" placeholder="" readonly="readonly" name="controller" class="col-xs-10 col-sm-5"></div>
+                </div>
+                <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 操作 </label>
+                    <div class="col-sm-9"><input type="text" placeholder="" readonly="readonly" name="action" class="col-xs-10 col-sm-5"></div>
+                </div>
+                <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 序号 </label>
+                    <div class="col-sm-9"><input type="text" placeholder="" name="indexno" class="col-xs-10 col-sm-5"></div>
+                </div>
+                <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 当前操作 </label>
+                    <div class="col-sm-9">
+                        新增<input type="radio" placeholder="" name="action_type" checked="checked" value="add" />
+                        修改<input type="radio" placeholder="" name="action_type" value="update" />
+                    </div>
+                </div>
+                <!--按钮操作-->
+                <div class="Button_operation">
+                    <button onclick="save_submit('add');" class="btn btn-primary radius" type="button"><i class="fa fa-save "></i> 保存并提交</button>
+                    <button onclick="delete_auth();" id="delete_btn" style="display: none;" class="btn btn-default radius" type="button">&nbsp;&nbsp;删除&nbsp;&nbsp;</button>
+                </div>
+            </form>
+        </div>
+    </div>
+   <!--权限分配-->
+    <div class="Assign_style">
+        <div class="title_name">
+            权限列表
+            <button onclick="delete_datas();" class="btn btn-secondary  btn-warning" type="button" style="float: right;">
+                删除选中
+            </button>
+        </div>
+        <div class="Select_Competence">
+            {if array_key_exists('0',$vars) }
+                {foreach vars as $k=>$v}
+                    <dl class="permission-list" auth_id="{$v['id']}" model_indexno="{$v['indexno']}" >
+                        <dt class="auth-input-checkbox" aid="{$v['id']}" aname="{$v['name']}" apid="{$v['pid']}" acontroller="{$v['controller']}" amodel="{$v['model']}" aaction="{$v['action']}" alevel="{$v['level']}" aindexno="{$v['indexno']}">
+                            <label class="middle"><input name="user-Character-0" class="ace auth_model" value="{$v['id']}" type="checkbox" id="id-disable-check"><span class="lbl">{$v['name']}</span></label>
+                        </dt>
+                        {if array_key_exists('child',$v) }
+                            {foreach $v['child'] as $kk=>$vv}
+                                <dd auth_id="{$vv['id']}" controller_indexno="{$vv['indexno']}">
+                                    <dl class="cl permission-list2">
+                                        <dt class="auth-input-checkbox" aid="{$vv['id']}" aname="{$vv['name']}" apid="{$vv['pid']}" acontroller="{$vv['controller']}" amodel="{$vv['model']}" aaction="{$vv['action']}" alevel="{$vv['level']}" aindexno="{$vv['indexno']}">
+                                            <label class="middle"><input type="checkbox" value="{$vv['id']}" class="ace auth_controller"  name="user-Character-0-0" id="id-disable-check"><span class="lbl">{$vv['name']}</span></label>
+                                        </dt>
+                                        <dd>
+                                            {if array_key_exists('child',$vv) }
+                                                {foreach $vv['child'] as $kkk=>$vvv}
+                                                    <label class="middle auth-input-checkbox"  aid="{$vvv['id']}" aname="{$vvv['name']}" apid="{$vvv['pid']}" acontroller="{$vvv['controller']}" amodel="{$vvv['model']}" aaction="{$vvv['action']}" alevel="{$vvv['level']}" aindexno="{$vvv['indexno']}">
+                                                        <input type="checkbox" value="{$vvv['id']}" class="ace auth_action" name="user-Character-0-0-0" id="user-Character-0-0-0">
+                                                            <span class="lbl">{$vvv['name']}</span>
+                                                    </label>
+                                                {/foreach}
+                                            {/if}
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            {/foreach}
+                        {/if}
+                    </dl>
+                {/foreach}
+            {/if}
+<!--            <dl class="permission-list">
+                <dt>
+                    <label class="middle"><input name="user-Character-0" class="ace" type="checkbox" id="id-disable-check"><span class="lbl">产品管理</span></label>
+                </dt>
+                <dd>
+                    <dl class="cl permission-list2">
+                        <dt><label class="middle"><input type="checkbox" value="" class="ace"  name="user-Character-0-0" id="id-disable-check"><span class="lbl">产品列表</span></label></dt>
+                        <dd>
+                            <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-0"><span class="lbl">添加</span></label>
+                            <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-1"><span class="lbl">修改</span></label>
+                            <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-2"><span class="lbl">删除</span></label>
+                            <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-3"><span class="lbl">查看</span></label>
+                            <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-4"><span class="lbl">审核</span></label>
+                        </dd>
+                    </dl>
+                    <dl class="cl permission-list2">
+                        <dt><label class="middle"><input type="checkbox" value="" class="ace"  name="user-Character-0-1" id="user-Character-0-1"> <span class="lbl">品牌管理</span></label></dt>
+                        <dd>
+                            <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-0"><span class="lbl">添加</span></label>
+                            <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-1"><span class="lbl">修改</span></label>
+                            <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-2"><span class="lbl">删除</span></label>
+                            <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-3"><span class="lbl">查看</span></label>
+                            <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-4"><span class="lbl">审核</span></label>
+                        </dd>
+                    </dl>
+                    <dl class="cl permission-list2">
+                        <dt><label class="middle"><input type="checkbox" value="" class="ace"  name="user-Character-0-1" id="user-Character-0-1"> <span class="lbl">分类管理</span></label></dt>
+                        <dd>
+                         <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-0"><span class="lbl">添加</span></label>
+                         <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-1"><span class="lbl">修改</span></label>
+                         <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-2"><span class="lbl">删除</span></label>
+                         <label class="middle"><input type="checkbox" value="" class="ace" name="user-Character-0-0-0" id="user-Character-0-0-3"><span class="lbl">查看</span></label>
+                       </dd>
+                      </dl>
+                </dd>
+            </dl>-->
+        </div> 
+    </div>
+</div>
+</body>
+</html>
+<script src="__JS__/jquery-2.1.1.js"></script>
+<!-- layer -->
+<script src="__JSPLU__/layer/layer.js"></script>
+<!-- 弹层js -->
+<script src="__JS__/plugins/sweetalert/sweetalert.min.js"></script>
+<!-- 引入通用js -->
+<script src="__JS__/local/common.js"></script>
+<!-- 引入本页面js -->
+<script src="__JS__/local/auth.js"></script>
+<script type="text/javascript">
+    //获取url(使用tp内置的url制作url)
+    /*
+     * @param path[String][必须] //要制作的地址[字符串类型]
+     * @param param[String|Array][非必须]   //制作url时需要带的参数[字符串类型或者数组]
+     */
+    function get_url(path, param){
+        return make_url("{:url('common/tool/get_url')}", path, param);
+    }
+    auth_datas = eval('(<?php if(array_key_exists(0,$vars)){echo json_encode($vars);}else{ echo "null";} ?>)');
+
+</script>

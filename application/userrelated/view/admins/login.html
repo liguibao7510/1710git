@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>登录</title>
+
+    <link href="__CSS__/bootstrap.min.css" rel="stylesheet">
+    <link href="__CSS__/font-awesome.css" rel="stylesheet">
+    <!-- 弹窗样式 -->
+    <link href="__CSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <link href="__CSS__/animate.css" rel="stylesheet">
+    <link href="__CSS__/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">CF</h1>
+
+            </div>
+            <h3>欢迎进入才风科技</h3>
+
+            <p>登录进去。体验真正的强大才风CMS。</p>
+            <form class="m-t login-from" role="form" action="userrelated/admins/check_amdiner">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" placeholder="用户名" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="passwd" placeholder="密码" required="">
+                </div>
+                <button type="button" id="submit_btn" class="btn btn-primary block full-width m-b">登录</button>
+
+                <a href=""><small>忘记密码?</small></a>
+                <p class="text-muted text-center"><small>没有账户?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="">创建账户</a>
+            </form>
+            <p class="m-t"> <small>我们的应用程序主要基于ThinkPHP 5+ &copy; </small> </p>
+
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="__JS__/jquery-2.1.1.js"></script>
+    <script src="__JS__/bootstrap.min.js"></script>
+    <!-- 弹层js -->
+    <script src="__JS__/plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- 引入通用js -->
+    <script src="__JS__/local/common.js"></script>
+    <script type="text/javascript">
+        $("#submit_btn").click(function(){
+            var name = $("input[name='name']").val();
+            var passwd = $("input[name='passwd']").val();
+            if( (name == '') || (passwd == '') ){
+                //弹窗提示
+                swal({
+                    title: '非法操作',
+                    text: '请输入用户名和密码',
+                    type: "warning"
+                });
+                return false
+            }
+
+            var res_datas = go_ajax("{:url('backend/adminer/check')}", {name : name,passwd : passwd}, false);
+            //登陆成功
+            console.log(res_datas)
+            if( res_datas['res_code']==200 ){
+                swal({
+                    title: "登陆成功",
+                    text: '请点击“确定”进行跳转',
+                    type: "success",
+                    showCancelButton: false,
+//                            confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确定",
+                    closeOnConfirm: false
+                }, function () {
+                    //刷新页面
+                    window.location.href="/PSD1710/20_CMSstyle/public/backend/index";
+                });
+            }
+            //登陆失败
+            else{
+                //弹窗提示
+                swal({
+                    title: "登陆失败",
+                    text: res_datas['msg'],
+                    type: "warning"
+                });
+            }
+        });
+
+        //先进行一次缓存登陆判断
+        function cache_check(){
+
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>联系我们</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+   	<link rel="stylesheet" type="text/css" href="__TPLSOUR__/{$vars['currenttpl']}/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="__TPLSOUR__/{$vars['currenttpl']}/css/style.css">
+        <!-- layer样式 -->
+        <link href="__JSPLU__/layer/theme/default/layer.css" rel="stylesheet" />
+        <style type="text/css">
+            .rongyu{
+                padding-top: 80px;
+                background: url(http://commonuse.oss-cn-beijing.aliyuncs.com/aboutbg.png) no-repeat;
+                background-position: top center;
+                background-color: #fff;
+                overflow: hidden;
+            }
+            .top{
+                text-align: center;
+            }
+            .back-icon{
+                float: left;
+                font-weight: bold;
+                color: white;
+                margin-left: 10px;
+            }
+            .seo-title{
+                font-weight: bold;
+                color: white;
+                font-size: 15px;
+                margin-left: -37px;
+            }
+        </style>
+</head>
+<body>
+	<div class="top"><span class="back-icon" onclick="javascript:window.history.go(-1);"><<<</span><span class="seo-title">联系我们</span></div>
+		
+       <div class="contact-box">
+       		<h3>网站地图</h3>
+	        <div class="short-line"><span></span></div>
+       		<div style="width:95%; margin:10px auto; height:280px; clear:both" id="myMap">
+    			<iframe id="geoPage" width="100%" height="100%" frameborder="0" scrolling="no" src=""></iframe>
+			</div>
+	       	<h3>联系方式</h3>
+	        <div class="short-line"><span></span></div>
+	        <ul class="ourinfo">
+	        </ul>
+       </div>
+    <script src="__JS__/jquery-2.1.1.js"></script>
+    <!-- layer插件js -->
+    <script src="__JSPLU__/layer/layer.js"></script>
+    <!-- 网站导航json数据 -->
+    <script src="__JSON__/webmap.js"></script>
+    <!-- 通用js -->
+    <script src="__TPLSOUR__/{$vars['currenttpl']}/js/common.js"></script>
+    <!-- 本页面js -->
+    <script src="__TPLSOUR__/{$vars['currenttpl']}/js/contact.js"></script>
+    <script src="__TPLSOUR__/{$vars['currenttpl']}/js/swiper.min.js"></script>
+    <script src="__TPLSOUR__/{$vars['currenttpl']}/js/semp.js"></script>
+</body>
+</html>

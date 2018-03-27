@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>编辑文章</title>
+
+    <link href="__CSS__/bootstrap.min.css" rel="stylesheet">
+    <link href="__CSS__/font-awesome.css" rel="stylesheet">
+
+    <link href="__CSS__/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="__CSS__/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+
+    <link href="__CSS__/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+    <link href="__CSS__/animate.css" rel="stylesheet">
+    <link href="__CSS__/style.css" rel="stylesheet">
+    <!-- 弹层样式 -->
+    <link href="__CSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <!-- layer样式 -->
+    <link href="__JSPLU__/layer/theme/default/layer.css" rel="stylesheet">
+    <!-- laowang自己的css -->
+    <link href="__CSS__/local_style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<div id="wrapper">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>编辑文章</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="index.html">首页</a>
+                    </li>
+                    <li>
+                        <a>内容管理</a>
+                    </li>
+                    <li class="active">
+                        <strong>编辑文章</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#tab-1">文章前部</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-2">文章内容</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-4">图片</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="tab-1" class="tab-pane active">
+                                    <div class="panel-body">
+
+                                        <fieldset class="form-horizontal">
+                                            <div class="form-group"><label class="col-sm-2 control-label">文章标题:</label>
+                                                <div class="col-sm-10"><input type="text" name="title" class="form-control" placeholder="为了SEO考虑请用_隔开词"></div>
+                                            </div>
+                                            <div class="form-group"><label class="col-sm-2 control-label">文章keywords:</label>
+                                                <div class="col-sm-10"><input type="text" name="keywords" class="form-control" placeholder="为了SEO考虑请用英文,隔开词"></div>
+                                            </div>
+                                            <div class="form-group"><label class="col-sm-2 control-label">文章描述:</label>
+                                                <div class="col-sm-10"><input type="text" name="abstract" class="form-control" placeholder="为了SEO考虑请注意围绕关键字进行描述"></div>
+                                            </div>
+                                            <div class="form-group"><label class="col-sm-2 control-label">文章分类:</label>
+                                                <div class="col-sm-10 col-sm-10-selects article-classify">
+                                                    <select class="form-control" onchange="selected_artcf(this)" autocomplete="off">
+                                                        <option value="0">--请选择--</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                    </div>
+                                </div>
+                                <div id="tab-2" class="tab-pane">
+                                    <div class="panel-body">
+                                        <fieldset class="form-horizontal">
+                                            <div class="form-group"><label class="col-sm-2 control-label">内容:</label>
+                                                <div class="col-sm-10">
+                                                    <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <button type="button" class="btn btn-success" onclick="save_article('update')">
+                                            <i class="fa fa-plus">提交编辑</i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="tab-4" class="tab-pane">
+                                    <div class="panel-body">
+
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-stripped">
+                                                <thead>
+                                                <tr>
+                                                    <th>
+                                                        图片视图
+                                                    </th>
+                                                    <th>
+                                                        选择文件
+                                                    </th>
+                                                    <th>
+                                                        操作
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+<!--                                                <tr>
+                                                    <td>
+                                                        <img src="http://article-file.oss-cn-beijing.aliyuncs.com/201711265a1a2a8d125a0.jpg" style="width: 80px;">
+                                                    </td>
+                                                    <td>
+                                                        <input type="file" class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input type="hidden" name="file_id" class="form-control">
+                                                        <button class="btn btn-outline btn-primary dim" type="button" onclick="use_this_pic(this)">
+                                                            <i class="fa fa-check"></i></button>
+                                                        <button class="btn btn-outline btn-primary dim" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <button class="btn btn-default  dim " type="button" onclick="del_this_pic(this,1)">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>-->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <button type="button" class="btn btn-success" onclick="more_img(this)">
+                                            <i class="fa fa-plus">新增图片</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</div>
+
+
+
+<!-- Mainly scripts -->
+<script src="__JS__/jquery-2.1.1.js"></script>
+<script src="__JS__/bootstrap.min.js"></script>
+<script src="__JS__/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="__JS__/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="__JS__/inspinia.js"></script>
+<script src="__JS__/plugins/pace/pace.min.js"></script>
+
+<!-- SUMMERNOTE -->
+<script src="__JS__/plugins/summernote/summernote.min.js"></script>
+
+<!-- Data picker -->
+<script src="__JS__/plugins/datapicker/bootstrap-datepicker.js"></script>
+<!-- 编辑器js开始 -->
+    <script type="text/javascript" charset="utf-8" src="__JSPLU__/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__JSPLU__/ueditor/ueditor.all.min.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="__JSPLU__/ueditor/lang/zh-cn/zh-cn.js"></script>
+<!-- 编辑器js结束 -->
+
+<!-- layer -->
+<script src="__JSPLU__/layer/layer.js"></script>
+<!-- 弹层js -->
+<script src="__JS__/plugins/sweetalert/sweetalert.min.js"></script>
+<!-- 引入文章分类json数据 -->
+<script src="__JSON__/articleclassify.js"></script>
+<!-- 引入通用js -->
+<script src="__JS__/local/common.js"></script>
+
+<!-- 引入本页面js -->
+<script src="__JS__/local/edit_add_article.js"></script>
+<script src="__JS__/local/edit_article.js"></script>
+
+<script>
+    var currnt_action_id = "{$Request.param.id}";
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor');
+    $(document).ready(function(){
+
+        $('.summernote').summernote();
+
+        $('.input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+        
+        //填充文章顶级分类
+        filling_article_classify();
+    });
+    
+    //获取url(使用tp内置的url制作url)
+    /*
+     * @param path[String][必须] //要制作的地址[字符串类型]
+     * @param param[String|Array][非必须]   //制作url时需要带的参数[字符串类型或者数组]
+     */
+    function get_url(path, param){
+        return make_url("{:url('common/tool/get_url')}", path, param);
+    }
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    
+    <link href="__TPLSOUR__/{$vars['currenttpl']}/css/pc/style.css" rel="stylesheet">
+    <link href="__TPLSOUR__/{$vars['currenttpl']}/css/pc/home.css" rel="stylesheet">
+    
+    <!-- 自定义样式 -->
+    <style type="text/css">
+        @font-face {
+            font-family:'iconfont';src:url("__TPLSOUR__/{$vars['currenttpl']}/font/pc/iconfont.eot?1462242749");
+            src:url("__TPLSOUR__/{$vars['currenttpl']}/font/pc/iconfont.eot?&1462242749#iefix") format("embedded-opentype"),
+                url("__TPLSOUR__/{$vars['currenttpl']}/font/pc/iconfont.woff?1462242749") format("woff"),
+                url("__TPLSOUR__/{$vars['currenttpl']}/font/pc/iconfont.ttf?1462242749") format("truetype"),
+                url("__TPLSOUR__/{$vars['currenttpl']}/font/pc/iconfont.svg?1462242749#iconfont") format("svg")
+        }
+        .safe-expert-outer {
+            background: url(http://commonuse.oss-cn-beijing.aliyuncs.com/pc-commonsue/ib.jpg) center center no-repeat;
+            margin-bottom: 65px;
+        }
+        .safe-expert .expert-list li {
+            float: left;
+            position: relative;
+            width: 390px;
+            width: 385px\9;
+            height: 160px;
+            background: url(http://commonuse.oss-cn-beijing.aliyuncs.com/pc-commonsue/dot.png) repeat;
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="hd">
+        <div class="site-nav">
+
+    <div class="main-content">
+        <div class="site-notice">
+            <i class="iconfont">&#xe640;</i>
+            <span>公告：[3.29] 春节长假云服务合同邮寄公告</span>
+            <a href="javascript:;" class="more-notice">更多></a>
+        </div>
+
+        <div class="site-nav-r-opt">
+            <ul>
+                <li class="site-log"><a href="javascript:;">您好！请登录</a></li>
+                <li class="site-reg"><a href="javascript:;">新单位注册</a></li>
+                <li class="site-ctrl"><a href="backend/login.html">管理控制台</a></li>
+            </ul>
+        </div>
+    </div>
+    
+</div>
+        <div class="header-nav">
+  <div class="main-content">
+        <div class="navigation-inner">
+            <div class="logo">
+                <h1>
+                    <a href="index.html" class="logo-img">云平台</a>
+                </h1>
+            </div>
+            <div class="header-categories" id="nav-con">
+                <ul class="menu">
+                </ul>
+            </div>
+        </div>
+  </div>
+</div>
+    </div>
+    <div class="banner-swiper">
+      <ul class="swiper-wrapper clearfix">
+        <li class="swiper-slide">
+            <a href="javascript:;">
+            <div class="release">云安全服务平台V1.0发布</div>
+            <div class="note">企业信息安全服务管家、安全态势时时掌握、运维管理轻松搞定!</div>
+          </a>
+        </li>
+        <li class="swiper-slide">
+          <a href="javascript:;">
+            <div class="release">云安全服务平台V1.0发布</div>
+            <div class="note">企业信息安全服务管家、安全态势时时掌握、运维管理轻松搞定!</div>
+          </a>
+        </li>
+        <li class="swiper-slide">
+          <a href="javascript:;">
+            <div class="release">云安全服务平台V1.0发布</div>
+            <div class="note">企业信息安全服务管家、安全态势时时掌握、运维管理轻松搞定!</div>
+          </a>
+        </li>
+      </ul>
+      <div class="swiper-pagination">
+        <div class="pagination-inner clearfix"></div>
+      </div>
+    </div>
+
+    <div class="service-title"></div>
+    <div class="service-intro"></div>
+    <ul class="service-list clearfix">
+    </ul>
+    <div class="safe-expert-outer">
+        <div class="safe-expert">
+            <div class="title"></div>
+            <div class="description"></div>
+            <ul class="expert-list clearfix">
+            </ul>
+        </div>
+    </div>
+    <div class="all-service"></div>
+    <div class="all-service-intro"></div>
+    <ul class="safe-box clearfix">
+    </ul>
+
+   
+      <div class="register-btn">免费注册，享新手礼包</div>
+    
+
+    <div id="ft" class="login-ft">
+  <div class="footer-copyright">
+    <p class="clearfix links">
+    </p>
+    <p style="font-family:arial;"></p>
+    <p style="font-family:arial;"></p>
+  </div>
+</div>
+    <script src="__JS__/jquery-2.1.1.js"></script>
+    <!-- layer插件js -->
+    <script src="__JSPLU__/layer/layer.js"></script>
+    <!-- 网站导航json数据 -->
+    <script src="__JSON__/webmap.js"></script>
+    <!-- 通用js -->
+    <script src="__TPLSOUR__/{$vars['currenttpl']}/js/pc/common.js"></script>
+    <!-- 本页面js -->
+    <script src="__TPLSOUR__/{$vars['currenttpl']}/js/pc/index.js"></script>
+    
+    <script src="__TPLSOUR__/{$vars['currenttpl']}/js/pc/swiper.js"></script>
+    <script type="text/javascript">
+      var bannerSwiper = new Swiper('.banner-swiper', {
+        slideElement: 'li',
+        autoplay: 5000,
+        loop: true,
+        pagination: '.banner-swiper .pagination-inner',
+        paginationClickable: true,
+        autoplayDisableOnInteraction: false
+        
+      });
+    </script>
+</body>
+</html>

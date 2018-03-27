@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>部门角色管理</title>
+
+    <link href="__CSS__/bootstrap.min.css" rel="stylesheet">
+    <link href="__CSS__/font-awesome.css" rel="stylesheet">
+    <link href="__CSS__/animate.css" rel="stylesheet">
+    <link href="__CSS__/style.css" rel="stylesheet">
+    <!-- 弹层样式 -->
+    <link href="__CSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <!-- layer样式 -->
+    <link href="__JSPLU__/layer/theme/default/layer.css" rel="stylesheet">
+    <!-- laowang自己的css -->
+    <link href="__CSS__/local_style.css" rel="stylesheet">
+    <style type="text/css">
+        .dd{
+            /*width: 36%;*/
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>部门与角色管理</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">主页</a>
+                        </li>
+                        <li>
+                            <a>用户管理</a>
+                        </li>
+                        <li class="active">
+                            <strong>部门与角色</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content  animated fadeInRight">
+            <div class="row">
+                <div>
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>部门与角色管理</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <button type="button" class="btn btn-primary" onclick="add_top_classify(this)"><i class="fa fa-plus">新增部门</i></button>
+                            <div class="dd" id="nestable2">
+                                <ol class="dd-list">
+                                    {if array_key_exists('0',$vars) }
+                                        {foreach vars as $k=>$v}
+                                            <li class="dd-item" data-id="1">
+                                                <button data-action="collapse" type="button" style="display: none;" onclick="show_another(this,'collapse')">Collapse</button>
+                                                <button data-action="expand" type="button" style="display: block;" onclick="show_another(this,'expand')">Expand</button>
+                                                <div class="dd-handle">
+                                                    <span class="label label-info"><i class="fa fa-users"></i></span> {$v['name']}
+                                                    <span>
+                                                        <i class="fa fa-plus dd-nodrag" onclick="add_children(this,'{$v[\'id\']}')" style="float: right;margin-left: 50px;"></i>
+                                                        <i class="fa fa-trash-o dd-nodrag" onclick="delete_classify(this,'{$v[\'id\']}')" style="float: right;"></i>
+                                                        <i class="fa fa-pencil-square-o dd-nodrag" onclick="edit_top_classify(this,'{$v[\'id\']}','{$v[\'code\']}','{$v[\'name\']}','{$v[\'description\']}','{$v[\'indexno\']}')" style="float: right;margin-right: 15px;"></i>
+                                                    </span>
+                                                    <!--<span style="float: right;" onclick="add_children(this)">新增子类<i class="fa fa-plus dd-nodrag"></i></span>-->
+                                                </div>
+                                                {if array_key_exists('roles',$v) }
+                                                    <ol class="dd-list" style="display: none;">
+                                                        {foreach $v['roles'] as $kk=>$vv}
+                                                            <li class="dd-item" data-id="2">
+                                                                <div class="dd-handle">
+                                                                    <span class="pull-right">
+                                                                        <i class="fa fa-trash-o dd-nodrag" onclick="delete_role(this,'{$vv[\'id\']}')" style="float: right;"></i>
+                                                                        <i class="fa fa-pencil-square-o dd-nodrag" onclick="edit_classify(this,'{$vv[\'id\']}','{$vv[\'name\']}','{$v[\'id\']}','{$vv[\'level\']}','{$vv[\'description\']}','{$vv[\'indexno\']}')" style="float: right;margin-right: 15px;"></i>
+                                                                        <i class="fa fa-key" onclick="distribution_auth('{$vv[\'id\']}','{$vv[\'name\']}')" style="float: right;margin-right: 15px;"></i>
+                                                                    </span>
+                                                                    <span class="label label-warning"><i class="fa fa-child"></i></span> {$vv['name']}
+                                                                </div>
+                                                            </li>
+                                                        {/foreach}
+                                                    </ol>
+                                                {/if}
+                                            </li>
+                                        {/foreach}
+                                    {/if}
+<!--                                    <li class="dd-item" data-id="5">
+                                        <div class="dd-handle">
+                                            <span class="label label-warning"><i class="fa fa-users"></i></span> Integer vitae libero.
+                                        </div>
+                                    </li>-->
+                                </ol>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="__JS__/jquery-2.1.1.js"></script>
+    <script src="__JS__/bootstrap.min.js"></script>
+    <script src="__JS__/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__JS__/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- 拖动js插件 -->
+    <!--<script src="__JS__/plugins/nestable/jquery.nestable.js"></script>-->
+
+    <!-- Custom and plugin javascript -->
+    <script src="__JS__/inspinia.js"></script>
+    <script src="__JS__/plugins/pace/pace.min.js"></script>
+    <!-- layer -->
+    <script src="__JSPLU__/layer/layer.js"></script>
+    <!-- 弹层js -->
+    <script src="__JS__/plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- 引入通用js -->
+    <script src="__JS__/local/common.js"></script>
+    <!-- 引入本页面js -->
+    <script src="__JS__/local/departmentrole.js"></script>
+
+    <script>
+        
+        //获取url(使用tp内置的url制作url)
+        /*
+         * @param path[String][必须] //要制作的地址[字符串类型]
+         * @param param[String|Array][非必须]   //制作url时需要带的参数[字符串类型或者数组]
+         */
+        function get_url(path, param){
+            return make_url("{:url('common/tool/get_url')}", path, param);
+        }
+        
+    </script>
+
+</body>
+
+</html>

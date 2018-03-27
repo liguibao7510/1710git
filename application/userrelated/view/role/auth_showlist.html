@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link href="__CSS__/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="__CSS__/auth_style.css"/>       
+<link href="__CSS__/codemirror.css" rel="stylesheet"/>
+<link rel="stylesheet" href="__CSS__/ace.min.css" />
+<link rel="stylesheet" href="__CSS__/font-awesome.min.css" />
+<!--[if lte IE 8]>
+          <link rel="stylesheet" href="__CSS__/ace-ie.min.css" />
+        <![endif]-->
+<!-- 弹层样式 -->
+<link href="__CSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+<!-- layer样式 -->
+<link href="__JSPLU__/layer/theme/default/layer.css" rel="stylesheet" />
+<!-- laowang自己的css -->
+<link href="__CSS__/local_style.css" rel="stylesheet">
+<title>权限管理</title>
+</head>
+
+<body>
+<div class="Competence_add_style clearfix">
+   <!--权限分配-->
+        <div class="title_name">
+            <button onclick="distribution_auth();" class="btn btn-secondary  btn-warning" type="button" style="float: left;">
+                分配权限
+            </button>
+        </div>
+   <div class="Select_Competence" style="width: 100%;">
+            {if array_key_exists('0',$vars) }
+                {foreach vars as $k=>$v}
+                    <dl class="permission-list" auth_id="{$v['id']}" model_indexno="{$v['indexno']}" >
+                        <dt class="auth-input-checkbox" aid="{$v['id']}" aname="{$v['name']}" apid="{$v['pid']}" acontroller="{$v['controller']}" amodel="{$v['model']}" aaction="{$v['action']}" alevel="{$v['level']}" aindexno="{$v['indexno']}">
+                            <label class="middle">
+                                {if $v['selected'] == 1 }
+                                    <input name="user-Character-0" class="ace auth_model" checked="checked" value="{$v['id']}" type="checkbox" id="id-disable-check" />
+                                {else /}
+                                    <input name="user-Character-0" class="ace auth_model" value="{$v['id']}" type="checkbox" id="id-disable-check" />
+                                {/if}
+                                <span class="lbl">{$v['name']}</span>
+                            </label>
+                        </dt>
+                        {if array_key_exists('child',$v) }
+                            {foreach $v['child'] as $kk=>$vv}
+                                <dd auth_id="{$vv['id']}" controller_indexno="{$vv['indexno']}">
+                                    <dl class="cl permission-list2">
+                                        <dt class="auth-input-checkbox" aid="{$vv['id']}" aname="{$vv['name']}" apid="{$vv['pid']}" acontroller="{$vv['controller']}" amodel="{$vv['model']}" aaction="{$vv['action']}" alevel="{$vv['level']}" aindexno="{$vv['indexno']}">
+                                            <label class="middle">
+                                                {if $vv['selected'] == 1 }
+                                                    <input type="checkbox" value="{$vv['id']}" class="ace auth_controller" checked="checked" name="user-Character-0-0" id="id-disable-check"/>
+                                                {else /}
+                                                    <input type="checkbox" value="{$vv['id']}" class="ace auth_controller" name="user-Character-0-0" id="id-disable-check"/>
+                                                {/if}
+                                                <span class="lbl">{$vv['name']}</span>
+                                            </label>
+                                        </dt>
+                                        <dd>
+                                            {if array_key_exists('child',$vv) }
+                                                {foreach $vv['child'] as $kkk=>$vvv}
+                                                    <label class="middle auth-input-checkbox"  aid="{$vvv['id']}" aname="{$vvv['name']}" apid="{$vvv['pid']}" acontroller="{$vvv['controller']}" amodel="{$vvv['model']}" aaction="{$vvv['action']}" alevel="{$vvv['level']}" aindexno="{$vvv['indexno']}">
+                                                        {if $vvv['selected'] == 1 }
+                                                            <input type="checkbox" value="{$vvv['id']}" class="ace auth_action" checked="checked" name="user-Character-0-0-0" id="user-Character-0-0-0"/>
+                                                        {else /}
+                                                            <input type="checkbox" value="{$vvv['id']}" class="ace auth_action" name="user-Character-0-0-0" id="user-Character-0-0-0"/>
+                                                        {/if}
+                                                        <span class="lbl">{$vvv['name']}</span>
+                                                    </label>
+                                                {/foreach}
+                                            {/if}
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            {/foreach}
+                        {/if}
+                    </dl>
+                {/foreach}
+            {/if}
+        </div>
+</div>
+</body>
+</html>
+<script src="__JS__/jquery-2.1.1.js"></script>
+<!-- layer -->
+<script src="__JSPLU__/layer/layer.js"></script>
+<!-- 弹层js -->
+<script src="__JS__/plugins/sweetalert/sweetalert.min.js"></script>
+<!-- 引入通用js -->
+<script src="__JS__/local/common.js"></script>
+<!-- 引入本页面js -->
+<script src="__JS__/local/distribution_auth.js"></script>
+<script type="text/javascript">
+    //获取url(使用tp内置的url制作url)
+    /*
+     * @param path[String][必须] //要制作的地址[字符串类型]
+     * @param param[String|Array][非必须]   //制作url时需要带的参数[字符串类型或者数组]
+     */
+    function get_url(path, param){
+        return make_url("{:url('common/tool/get_url')}", path, param);
+    }
+    auth_datas = eval('(<?php if(array_key_exists(0,$vars)){echo json_encode($vars);}else{ echo "null";} ?>)');
+    
+    var action_id = "{$Request.param.id}";
+    var distribution_type = "{$Request.param.type}";
+
+</script>
